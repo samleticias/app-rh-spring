@@ -1,11 +1,8 @@
 package com.example.apprh.models;
 
-import lombok.Data;
-
 import javax.persistence.*;
 
 @Entity
-@Data
 public class Dependente {
 
     @Id
@@ -21,4 +18,35 @@ public class Dependente {
     @ManyToOne
     private Funcionario funcionario;
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDatanascimento() {
+        return datanascimento;
+    }
+
+    public void setDatanascimento(String datanascimento) {
+        this.datanascimento = datanascimento;
+    }
+
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
+    }
 }
