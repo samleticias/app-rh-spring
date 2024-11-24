@@ -130,9 +130,9 @@
             <td><span th:text="${dependente.nome}"></span></td>
             <td><span th:text="${dependente.cpf}"></span></td>
             <td><span th:text="${dependente.datanascimento}"></span></td>
-<!--            <td><a class="waves-effect waves-light btn-small"-->
-<!--                   th:href="${(#mvc.url('FC#deletarDependente').arg(0, dependente.cpf)).build()}"><button-->
-<!--                    type="button" class="btn btn-danger">Excluir</button></a></td>-->
+            <td><a class="waves-effect waves-light btn-small"
+                   th:href="${(#mvc.url('FC#deletarDependente').arg(0, dependente.cpf)).build()}"><button
+                    type="button" class="btn btn-danger">Excluir</button></a></td>
 
         </tr>
         </tbody>

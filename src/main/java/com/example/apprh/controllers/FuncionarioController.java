@@ -41,6 +41,7 @@ public class FuncionarioController {
 
         fr.save(funcionario);
         attributes.addFlashAttribute("mensagem", "Funcionário cadastrado com sucesso!");
+
         return "redirect:/cadastrarFuncionario";
     }
 
@@ -50,6 +51,7 @@ public class FuncionarioController {
         ModelAndView mv = new ModelAndView("funcionario/lista-funcionario");
         Iterable<Funcionario> funcionarios = fr.findAll();
         mv.addObject("funcionarios", funcionarios);
+
         return mv;
     }
 
@@ -86,8 +88,8 @@ public class FuncionarioController {
         dependentes.setFuncionario(funcionario);
         dr.save(dependentes);
         attributes.addFlashAttribute("mensagem", "Dependente adicionado com sucesso");
-        return "redirect:/detalhes-funcionario/{id}";
 
+        return "redirect:/detalhes-funcionario/{id}";
     }
 
     // método GET que deleta funcionário
@@ -95,6 +97,7 @@ public class FuncionarioController {
     public String deletarFuncionario(long id) {
         Funcionario funcionario = fr.findById(id);
         fr.delete(funcionario);
+
         return "redirect:/funcionarios";
     }
 
@@ -105,6 +108,7 @@ public class FuncionarioController {
         Funcionario funcionario = fr.findById(id);
         ModelAndView mv = new ModelAndView("funcionario/update-funcionario");
         mv.addObject("funcionario", funcionario);
+
         return mv;
     }
 
@@ -117,7 +121,20 @@ public class FuncionarioController {
 
         long idLong = funcionario.getId();
         String id = "" + idLong;
-        return "redirect:/detalhes-funcionario/" + id;
 
+        return "redirect:/detalhes-funcionario/" + id;
+    }
+
+    // método GET que deleta dependente
+    @RequestMapping("/deletarDependente")
+    public String deletarDependente(String cpf) {
+        Dependente dependente = dr.findByCpf(cpf);
+
+        Funcionario funcionario = dependente.getFuncionario();
+        String codigo = "" + funcionario.getId();
+
+        dr.delete(dependente);
+
+        return "redirect:/detalhes-funcionario/" + codigo;
     }
 }
