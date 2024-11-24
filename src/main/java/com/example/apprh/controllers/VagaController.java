@@ -111,4 +111,25 @@ public class VagaController {
 
     }
 
+    // Métodos que atualizam dados cadastrais da vaga
+    // método GET que chama o formulário de edição da vaga
+    @RequestMapping("/editar-vaga")
+    public ModelAndView editarVaga(long codigo) {
+        Vaga vaga = vr.findByCodigo(codigo);
+        ModelAndView mv = new ModelAndView("vaga/update-vaga");
+        mv.addObject("vaga", vaga);
+        return mv;
+    }
+
+    // método POST do FORM que atualiza a vaga
+    @RequestMapping(value = "/editar-vaga", method = RequestMethod.POST)
+    public String updateVaga(@Valid Vaga vaga, BindingResult result, RedirectAttributes attributes) {
+        vr.save(vaga);
+        attributes.addFlashAttribute("success", "Vaga alterada com sucesso!");
+
+        long codigoLong = vaga.getCodigo();
+        String codigo = "" + codigoLong;
+        return "redirect:/vaga/" + codigo;
+    }
+
 }
