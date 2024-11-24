@@ -53,13 +53,40 @@ public class FuncionarioController {
         return mv;
     }
 
-    // GET que lista dependentes e detalhes dos funcionário
+    // método GET que lista dependentes e detalhes dos funcionário
     @RequestMapping("/detalhes-funcionario/{id}")
     public ModelAndView detalhesFuncionario(@PathVariable("id") long id) {
         Funcionario funcionario = fr.findById(id);
         ModelAndView mv = new ModelAndView("funcionario/detalhes-funcionario");
         mv.addObject("funcionarios", funcionario);
+
+        // lista de dependentes baseada no id do funcionário
+        Iterable<Dependente> dependentes = dr.findByFuncionario(funcionario);
+        mv.addObject("dependentes", dependentes);
+
         return mv;
+    }
+
+    // método POST que adiciona dependentes
+    @RequestMapping(value="/detalhes-funcionario/{id}", method = RequestMethod.POST)
+    public String detalhesFuncionarioPost(@PathVariable("id") long id, Dependente dependentes, BindingResult result,
+                                          RedirectAttributes attributes) {
+
+        if(result.hasErrors()) {
+            attributes.addFlashAttribute("mensagem", "Verifique os campos!");
+            return "redirect:/detalhes-funcionario/{id}";
+        }
+
+        if(dr.findByCpf(dependentes.getCpf()) != null) {
+            attributes.addFlashAttribute("mensagem_erro", "CPF duplicado");
+            return "redirect:/detalhes-funcionario/{id}";
+        }
+
+        Funcionario funcionario = fr.findById(id);
+        dependentes.setFuncionario(funcionario);
+        dr.save(dependentes);
+        attributes.addFlashAttribute("mensagem", "Dependente adicionado com sucesso");
+        return "redirect:/detalhes-funcionario/{id}";
 
     }
 }
