@@ -97,4 +97,27 @@ public class FuncionarioController {
         fr.delete(funcionario);
         return "redirect:/funcionarios";
     }
+
+    // Método que atualiza funcionário
+    // método GET que chama o formulário de edição do funcionário
+    @RequestMapping("/editar-funcionario")
+    public ModelAndView editarFuncionario(long id) {
+        Funcionario funcionario = fr.findById(id);
+        ModelAndView mv = new ModelAndView("funcionario/update-funcionario");
+        mv.addObject("funcionario", funcionario);
+        return mv;
+    }
+
+    // método POST que atualiza o funcionário
+    @RequestMapping(value = "/editar-funcionario", method = RequestMethod.POST)
+    public String updateFuncionario(@Valid Funcionario funcionario,  BindingResult result, RedirectAttributes attributes){
+
+        fr.save(funcionario);
+        attributes.addFlashAttribute("successs", "Funcionário alterado com sucesso!");
+
+        long idLong = funcionario.getId();
+        String id = "" + idLong;
+        return "redirect:/detalhes-funcionario/" + id;
+
+    }
 }
