@@ -75,9 +75,65 @@
 
         <br> <br>
 
+        <h2>Cadastrar candidato:</h2>
+
+        <th:block th:include="mensagem-validacao"></th:block>
+
+        <br>
+
+        <form method="post" th:object="${candidato}">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                        <label for="nomeCandidato"><b>Nome do candidato:</b> </label>
+                        <input type="text" id="nomeCandidato" name="nomeCandidato" class="form-control"
+                               placeholder="Nome Completo" required />
+                    </div>
+
+                    <div class="col">
+                        <label for="rg"><b>RG: </b> </label>
+                        <input type="text" id="rg" name="rg" placeholder="Somente números, sem traços ou pontos."
+                               class="validate form-control" required />
+                    </div>
+
+                    <div class="col">
+                        <label for="email"><b>E-mail:</b> </label>
+                        <input type="text" id="email" name="email" class="form-control"
+                               placeholder="email@email.com" required />
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success">Adicionar
+                Candidato</button>
+
+        </form>
     </div>
 
     <br> <br>
+
+    <h2>Inscritos:</h2>
+
+    <br>
+
+    <table class="table table-hover table-responsive w-auto table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Nome do candidato:</th>
+            <th scope="col">RG:</th>
+            <th scope="col">E-mail:</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="candidato : ${candidatos}">
+            <td><span th:text="${candidato.nomeCandidato}"></span></td>
+            <td><span th:text="${candidato.rg}"></span></td>
+            <td><span th:text="${candidato.email}"></span></td>
+        </tr>
+
+        </tbody>
+    </table>
 
 </div>
 
