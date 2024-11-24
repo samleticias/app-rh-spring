@@ -89,4 +89,12 @@ public class FuncionarioController {
         return "redirect:/detalhes-funcionario/{id}";
 
     }
+
+    // método GET que deleta funcionário
+    @RequestMapping("/deletarFuncionario")
+    public String deletarFuncionario(long id) {
+        Funcionario funcionario = fr.findById(id);
+        fr.delete(funcionario);
+        return "redirect:/funcionarios";
+    }
 }
