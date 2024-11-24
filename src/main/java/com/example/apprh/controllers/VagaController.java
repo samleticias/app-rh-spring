@@ -98,4 +98,17 @@ public class VagaController {
         return "redirect:/vaga/{codigo}";
     }
 
+    // método GET que deleta o candidato pelo RG
+    @RequestMapping("/deletarCandidato")
+    public String deletarCandidato(String rg) {
+        Candidato candidato = cr.findByRg(rg);
+        Vaga vaga = candidato.getVaga();
+        String codigo = "" + vaga.getCodigo();
+
+        cr.delete(candidato);
+
+        return "redirect:/vaga/" + codigo;
+
+    }
+
 }
