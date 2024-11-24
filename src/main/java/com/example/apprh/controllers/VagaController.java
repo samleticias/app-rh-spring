@@ -67,4 +67,12 @@ public class VagaController {
 
     }
 
+    // método GET que deleta a vaga
+    @RequestMapping("/deletarVaga")
+    public String deletarVaga(long codigo) {
+        Vaga vaga = vr.findByCodigo(codigo);
+        vr.delete(vaga);
+        return "redirect:/vagas";
+    }
+
 }

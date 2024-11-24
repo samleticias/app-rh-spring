@@ -67,6 +67,11 @@
             <td><span th:text="${vaga.descricao}"></span></td>
             <td>R$ <span th:text="${vaga.salario}"></span></td>
             <td><span th:text="${vaga.data}"></span></td>
+            <td>
+                <a th:href="${(#mvc.url('VC#deletarVaga').arg(0, vaga.codigo)).build()}">
+                    <button type="button" class="btn btn-danger">Excluir</button>
+                </a>
+            </td>
         </tr>
         </tbody>
     </table>
